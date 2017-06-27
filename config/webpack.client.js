@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path =  require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 
 var config = {
@@ -15,7 +16,26 @@ var config = {
     },
     module:{
          rules: [
-             { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+            {
+  test: /\.css$/,
+  loader: 'style-loader'
+}, {
+  test: /\.css$/,
+  loader: 'css-loader',
+  query: {
+    modules: true,
+    localIdentName: '[name]__[local]___[hash:base64:5]'
+  }
+ 
+        // use: ExtractTextPlugin.extract({
+        //   fallback: 'style-loader',
+        //   use: [
+        //     { loader: 'css-loader', options: { importLoaders: 1 } },
+        //     'postcss-loader'
+        //   ]
+        // })
+      }
          ]
     },
     plugins: [
@@ -26,7 +46,8 @@ var config = {
             template:path.resolve(__dirname,'../views/index.hbs'),
             filename: 'index.hbs',
             inject: 'body'
-        })
+        }),
+         new ExtractTextPlugin('[name].css')
     ]
 }
 

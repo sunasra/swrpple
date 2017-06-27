@@ -1,0 +1,10 @@
+.rightSide {
+    flex: 5
+}
+.items {
+    overflow:hidden;
+}
+.items div {
+    min-height: 280px;
+    padding: 10px;
+}
